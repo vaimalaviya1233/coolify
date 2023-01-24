@@ -75,7 +75,7 @@ export async function refreshTags() {
 					if (await fs.stat('./testTags.json')) {
 						const testTags = await fs.readFile('./testTags.json', 'utf8');
 						if (testTags.length > 0) {
-							tags = JSON.parse(tags).concat(JSON.parse(testTags));
+							tags = JSON.stringify(JSON.parse(tags).concat(JSON.parse(testTags)));
 						}
 					}
 				} catch (error) {}
@@ -104,8 +104,7 @@ export async function refreshTemplates() {
 						templates = templates + (await fs.readFile('./testTemplate.yaml', 'utf8'));
 					}
 				} catch (error) {}
-				const response = await fs.readFile('./devTemplates.yaml', 'utf8');
-				await fs.writeFile('./templates.json', JSON.stringify(yaml.load(response)));
+				await fs.writeFile('./templates.json', JSON.stringify(yaml.load(templates)));
 			} else {
 				const response = await got
 					.get('https://get.coollabs.io/coolify/service-templates.yaml')

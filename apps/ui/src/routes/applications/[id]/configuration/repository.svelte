@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit';
+	import BitbucketRepositories from './_BitbucketRepositories.svelte';
 	export const load: Load = async ({ params, url, stuff }) => {
 		try {
 			const { application, appId, settings } = stuff;
@@ -38,4 +39,6 @@
 	<GithubRepositories {application} />
 {:else if application.gitSource.type === 'gitlab'}
 	<GitlabRepositories {application} {appId} {settings} />
+{:else if application.gitSource.type === 'bitbucket'}
+	<BitbucketRepositories {application} {appId} {settings} />
 {/if}

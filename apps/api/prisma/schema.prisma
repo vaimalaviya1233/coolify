@@ -85,6 +85,7 @@ model Team {
   users             User[]
   certificate       Certificate[]
   dockerRegistry    DockerRegistry[]
+  bitbucketAppId    BitbucketApp[]
 }
 
 model TeamInvitation {
@@ -319,24 +320,37 @@ model DockerRegistry {
 }
 
 model GitSource {
-  id           String        @id @default(cuid())
-  name         String
-  forPublic    Boolean       @default(false)
-  type         String?
-  apiUrl       String?
-  htmlUrl      String?
-  customPort   Int           @default(22)
-  customUser   String        @default("git")
-  organization String?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  githubAppId  String?       @unique
-  gitlabAppId  String?       @unique
-  isSystemWide Boolean       @default(false)
-  gitlabApp    GitlabApp?    @relation(fields: [gitlabAppId], references: [id])
-  githubApp    GithubApp?    @relation(fields: [githubAppId], references: [id])
-  application  Application[]
-  teams        Team[]
+  id             String        @id @default(cuid())
+  name           String
+  forPublic      Boolean       @default(false)
+  type           String?
+  apiUrl         String?
+  htmlUrl        String?
+  customPort     Int           @default(22)
+  customUser     String        @default("git")
+  organization   String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  githubAppId    String?       @unique
+  gitlabAppId    String?       @unique
+  bitbucketAppId String?       @unique
+  isSystemWide   Boolean       @default(false)
+  gitlabApp      GitlabApp?    @relation(fields: [gitlabAppId], references: [id])
+  githubApp      GithubApp?    @relation(fields: [githubAppId], references: [id])
+  bitbucketApp   BitbucketApp? @relation(fields: [bitbucketAppId], references: [id])
+  application    Application[]
+  teams          Team[]
+}
+
+model BitbucketApp {
+  id                    String     @id @default(cuid())
+  consumerWorkspaceName String
+  consumerKey           String
+  consumerSecret        String
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+  gitSource             GitSource?
+  teams                 Team[]
 }
 
 model GithubApp {

@@ -22,6 +22,7 @@ interface AppSession {
     tokens: {
         github: string | null,
         gitlab: string | null,
+        bitbucket: string | null,
     },
     pendingInvitations: Array<any>,
     isARM: boolean
@@ -51,7 +52,8 @@ export const appSession: Writable<AppSession> = writable({
     },
     tokens: {
         github: null,
-        gitlab: null
+        gitlab: null,
+        bitbucket: null
     },
     pendingInvitations: [],
     isARM: false

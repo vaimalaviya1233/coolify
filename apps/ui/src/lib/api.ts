@@ -112,7 +112,7 @@ async function send({
 			!path.startsWith('https://api.github') &&
 			!path.includes('/v4/')
 		) {
-			Cookies.remove('token');
+			// Cookies.remove('token');
 		}
 
 		throw responseData;

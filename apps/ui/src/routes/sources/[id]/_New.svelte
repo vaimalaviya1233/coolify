@@ -3,6 +3,7 @@
 	export let settings: any;
 	import Github from './_Github.svelte';
 	import Gitlab from './_Gitlab.svelte';
+	import Bitbucket from './_Bitbucket.svelte';
 	function setPredefined(type: string) {
 		switch (type) {
 			case 'github':
@@ -24,7 +25,7 @@
 			case 'bitbucket':
 				source.name = 'Bitbucket.com';
 				source.type = 'bitbucket';
-				source.htmlUrl = 'https://bitbucket.com';
+				source.htmlUrl = 'https://bitbucket.org';
 				source.apiUrl = 'https://api.bitbucket.org';
 				source.organization = undefined;
 
@@ -48,6 +49,7 @@
 		<div class="flex justify-center space-x-2">
 			<button class="btn btn-sm" on:click={() => setPredefined('github')}>GitHub</button>
 			<button class="btn btn-sm" on:click={() => setPredefined('gitlab')}>GitLab</button>
+			<button class="btn btn-sm" on:click={() => setPredefined('bitbucket')}>Bitbucket</button>
 		</div>
 	</div>
 	{#if source?.type}
@@ -56,6 +58,8 @@
 				<Github bind:source {settings} />
 			{:else if source.type === 'gitlab'}
 				<Gitlab bind:source {settings} />
+			{:else if source.type === 'bitbucket'}
+				<Bitbucket bind:source {settings} />
 			{/if}
 		</div>
 	{/if}

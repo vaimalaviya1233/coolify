@@ -299,7 +299,7 @@ export async function getApplicationFromDB(id: string, teamId: string) {
 			include: {
 				destinationDocker: true,
 				settings: true,
-				gitSource: { include: { githubApp: true, gitlabApp: true } },
+				gitSource: { include: { githubApp: true, gitlabApp: true, bitbucketApp: true } },
 				secrets: true,
 				persistentStorage: true,
 				connectedDatabase: true,

@@ -323,20 +323,20 @@ export async function parseAndFindServiceTemplates(
 		if (service.serviceSetting.length > 0) {
 			for (const setting of service.serviceSetting) {
 				const { value, variableName } = setting;
-				const regex = new RegExp(`\\$\\$config_${variableName.replace('$$config_', '')}\"`, 'gi');
+				const regex = new RegExp(`\\$\\$config_${variableName.replace('$$config_', '')}`, 'gi');
 				if (value === '$$generate_fqdn') {
-					strParsedTemplate = strParsedTemplate.replaceAll(regex, service.fqdn + '"' || '' + '"');
+					strParsedTemplate = strParsedTemplate.replaceAll(regex, service.fqdn || '');
 				} else if (value === '$$generate_fqdn_slash') {
-					strParsedTemplate = strParsedTemplate.replaceAll(regex, service.fqdn + '/' + '"');
+					strParsedTemplate = strParsedTemplate.replaceAll(regex, service.fqdn + '/');
 				} else if (value === '$$generate_domain') {
-					strParsedTemplate = strParsedTemplate.replaceAll(regex, getDomain(service.fqdn) + '"');
+					strParsedTemplate = strParsedTemplate.replaceAll(regex, getDomain(service.fqdn));
 				} else if (service.destinationDocker?.network && value === '$$generate_network') {
 					strParsedTemplate = strParsedTemplate.replaceAll(
 						regex,
-						service.destinationDocker.network + '"'
+						service.destinationDocker.network
 					);
 				} else {
-					strParsedTemplate = strParsedTemplate.replaceAll(regex, value + '"');
+					strParsedTemplate = strParsedTemplate.replaceAll(regex, value);
 				}
 			}
 		}

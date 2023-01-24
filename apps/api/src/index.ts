@@ -242,6 +242,7 @@ async function getTagsTemplates() {
 				if (await fs.stat('./testTemplate.yaml')) {
 					templates = templates + (await fs.readFile('./testTemplate.yaml', 'utf8'));
 				}
+				console.log('[005] Test template loaded in dev mode...');
 			} catch (error) {}
 			try {
 				if (await fs.stat('./testTags.json')) {
@@ -250,6 +251,7 @@ async function getTagsTemplates() {
 						tags = JSON.stringify(JSON.parse(tags).concat(JSON.parse(testTags)));
 					}
 				}
+				console.log('[006] Test tags loaded in dev mode...');
 			} catch (error) {}
 
 			await fs.writeFile('./templates.json', JSON.stringify(yaml.load(templates)));
